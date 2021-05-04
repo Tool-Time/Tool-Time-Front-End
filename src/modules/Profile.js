@@ -8,11 +8,8 @@ class Profile extends React.Component {
     return(
       <Container>
         <Card>
-          <h1>{`Welcome home, ${user.name}`}</h1>
+          <h1>{`Welcome, ${user.name}`}</h1>
           <h2>{user.email}</h2>
-        </Card>
-        <Card>
-          <Card.Img src={user.picture}/>
         </Card>
       </Container>
     );
