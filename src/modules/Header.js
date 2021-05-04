@@ -1,16 +1,25 @@
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
+import {withAuth0} from '@auth0/auth0-react';
+import Login from './LoginButton';
+import Logout from './LogoutButton';
 
-function Header() {
+class Header extends React.Component {
+  render() {
     return (
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand>Tool Time</Navbar.Brand>
         <Link to="/" className="mr-2">home</Link>
-        <Button variant="outline-success" className="mr-2">Login</Button>
-        <Button variant="outline-success">Logout</Button>
+        {this.props.auth0.isAuthenticated ?
+          <Logout/>
+          :
+          <Login/>
+        }
+        
       </Navbar>
     )
+  }
 }
 
-export default Header;
+export default withAuth0(Header);
