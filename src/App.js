@@ -1,5 +1,6 @@
 import './App.css';
 import React from 'react';
+import axios from 'axios';
 import { Container, Card, Form, Button, Navbar} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
@@ -8,13 +9,25 @@ import {
 } from 'react-router-dom';
 import Header from './modules/Header';
 
+const API_Server = process.env.REACT_APP_API_URL;
+
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      //coming soon
+      users: [],
     }
+  }
+
+  getUsers = async () => {
+    const response = await axios.get(`${API_Server}users`);
+    const users = response.data;
+    this.setState({ users });
+  }
+
+  async componentDidMount() {
+    await this.getUsers();
   }
 
   render(){
