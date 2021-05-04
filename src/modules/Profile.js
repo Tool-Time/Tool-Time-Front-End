@@ -6,9 +6,12 @@ class Profile extends React.Component {
   render() {
     // const { user } = this.props.auth0;
     return(
-      <>
-        Something to come
-      </>
+      <Container>
+        <Card>
+          <h1>{`Welcome, ${user.name}`}</h1>
+          <h2>{user.email}</h2>
+        </Card>
+      </Container>
     );
   }
 }
