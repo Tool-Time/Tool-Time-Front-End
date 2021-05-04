@@ -1,25 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+//import axios from 'axios'
+import { Container } from 'react-bootstrap';
+import { withAuth0 } from '@auth0/auth0-react';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import Profile from './Profile';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      //coming soon
+    }
+  }
+
+  render(){
+    return(
+      <>
+      <LoginButton />
+      <LogoutButton />
+      {this.props.auth0.isAuthenticated && 
+      <Profile />
+      }
+      </>
+    )
+  }
 }
 
-export default App;
+
+
+
+export default withAuth0(App);
