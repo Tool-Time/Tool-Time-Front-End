@@ -1,14 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-//import axios from 'axios'
-import { Container } from 'react-bootstrap';
-import { withAuth0 } from '@auth0/auth0-react';
-import LoginButton from './modules/LoginButton';
+import { Container, Card, Form, Button, Navbar} from 'react-bootstrap';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 import Header from './modules/Header';
-//import Footer from './modules/Footer';
-import LogoutButton from './modules/LogoutButton';
-import Profile from './modules/Profile';
 
 
 class App extends React.Component {
@@ -22,12 +20,29 @@ class App extends React.Component {
   render(){
     return(
       <>
-      <Header />
-      {this.props.auth0.isAuthenticated ?  <LogoutButton /> : <LoginButton /> }
-      {this.props.auth0.isAuthenticated && 
-      <Profile />
-      }
-      {/* <Footer /> */}
+        <Router>
+          <Switch>
+            <Route path="/">
+              <Container fluid>
+                <Header />
+                <Navbar bg="success">
+                  <Form inline>
+                    <Form.Group >
+                      <Form.Control type="text" placeholder="enter a category of tool">
+                      </Form.Control>
+                      <Button className="ml-2">Submit</Button>
+                    </Form.Group>
+                  </Form>
+                </Navbar>
+                  <Card.Img
+                  alt='kitten' 
+                  src='http://placekitten.com/1920/600'
+                  className="radius-0"
+                  />
+              </Container>
+            </Route>
+          </Switch>
+        </Router>
       </>
     )
   }
@@ -36,4 +51,4 @@ class App extends React.Component {
 
 
 
-export default withAuth0(App);
+export default App;

@@ -1,10 +1,10 @@
 import React from 'react';
-import { withAuth0 } from '@auth0/auth0-react';
-import { Container, Card } from 'react-bootstrap';
+// import { withAuth0 } from '@auth0/auth0-react';
+// import { Container, Card } from 'react-bootstrap';
 
 class Profile extends React.Component {
   render() {
-    const { user } = this.props.auth0;
+    // const { user } = this.props.auth0;
     return(
       <Container>
         <Card>
@@ -16,4 +16,4 @@ class Profile extends React.Component {
   }
 }
 
-export default withAuth0(Profile);
+export default Profile;
