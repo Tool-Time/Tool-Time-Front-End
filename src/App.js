@@ -23,8 +23,7 @@ class App extends React.Component {
     return(
       <>
       <Header />
-      <LoginButton />
-      <LogoutButton />
+      {this.props.auth0.isAuthenticated ?  <LogoutButton /> : <LoginButton /> }
       {this.props.auth0.isAuthenticated && 
       <Profile />
       }
