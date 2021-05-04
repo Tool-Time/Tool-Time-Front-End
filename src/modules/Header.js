@@ -1,5 +1,6 @@
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import {link} from 'react-router-dom';
 
 function Footer() {
     return (
