@@ -1,14 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-//import axios from 'axios'
 import { Container } from 'react-bootstrap';
-import { withAuth0 } from '@auth0/auth0-react';
-import LoginButton from './modules/LoginButton';
 import Header from './modules/Header';
-//import Footer from './modules/Footer';
-import LogoutButton from './modules/LogoutButton';
-import Profile from './modules/Profile';
 
 
 class App extends React.Component {
@@ -21,15 +14,10 @@ class App extends React.Component {
 
   render(){
     return(
-      <>
-      <Header />
-      <LoginButton />
-      <LogoutButton />
-      {this.props.auth0.isAuthenticated && 
-      <Profile />
-      }
-      {/* <Footer /> */}
-      </>
+      <Container fluid>
+        <Header />
+        <img alt='kitten' src='http://placekitten.com/200/300'/>
+      </Container>
     )
   }
 }
@@ -37,4 +25,4 @@ class App extends React.Component {
 
 
 
-export default withAuth0(App);
+export default App;
