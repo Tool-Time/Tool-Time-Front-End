@@ -12,15 +12,19 @@ import MapContainer from './modules/Map.js';
 import {withAuth0} from '@auth0/auth0-react';
 
 const API_Server = process.env.REACT_APP_API_URL;
-
-
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: []
+      users: [],
+      selectedUser:[]
     }
   }
+
+getSelectedUser= async (e) => {
+  const response = await axios.get(`${API_Server}user/${e.value}`);
+  this.setState({selectedUser: response.data})
+}
 
   getUsers = async () => {
     const response = await axios.get(`${API_Server}`);
@@ -28,7 +32,6 @@ class App extends React.Component {
     this.setState({ users });
   }
  
-
   getQuery = async (e) => {
     e.preventDefault();
     const query = e.target.value.toLowerCase();
@@ -52,9 +55,13 @@ class App extends React.Component {
                 <Navbar bg="success">
                 </Navbar>
                   {this.state.users.length && this.props.auth0.isAuthenticated &&
-                    <MapContainer users={this.state.users} authUser={this.props.auth0.user}>
+                    <MapContainer 
+                    users={this.state.users} 
+                    getSelectedUser={this.getSelectedUser} 
+                    authUser={this.props.auth0.user}>
                     </MapContainer>
                   }
+                  {/* {this.state.selectedUser.length && <getUser> </getUser>} */}
               </Container>
             </Route>
           </Switch>
