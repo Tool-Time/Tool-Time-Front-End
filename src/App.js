@@ -1,14 +1,13 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
-import { Container, Card, Form, Button, Navbar} from 'react-bootstrap';
+import { Container, Card, Navbar} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
 import Header from './modules/Header';
-import SearchForm  from './modules/SearchForm';
 
 const API_Server = process.env.REACT_APP_API_URL;
 
@@ -17,8 +16,7 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: [],
-      query: ''
+      users: []
     }
   }
 
@@ -46,14 +44,13 @@ class App extends React.Component {
           <Switch>
             <Route path="/">
               <Container fluid>
-                <Header />
+                <Header onChange={this.getQuery}/>
                 <Navbar bg="success">
-                <SearchForm onChange={this.getQuery} />
                 </Navbar>
                   <Card.Img
                   alt='kitten' 
                   src='http://placekitten.com/1920/600'
-                  className="radius-0"
+                  className="mt-4"
                   />
               </Container>
             </Route>
