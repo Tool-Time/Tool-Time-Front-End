@@ -27,8 +27,10 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
-    await this.getUsers();
+    // await this.getUsers();
   }
+
+  
 
   render(){
     return(
