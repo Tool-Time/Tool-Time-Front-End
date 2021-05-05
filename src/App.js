@@ -8,24 +8,30 @@ import {
   Route
 } from 'react-router-dom';
 import Header from './modules/Header';
+import MapContainer from './modules/Map.js';
+import {withAuth0} from '@auth0/auth0-react';
 
 const API_Server = process.env.REACT_APP_API_URL;
-
-
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      users: []
+      users: [],
+      selectedUser:[]
     }
   }
+
+getSelectedUser= async (e) => {
+  const response = await axios.get(`${API_Server}user/${e.value}`);
+  this.setState({selectedUser: response.data})
+}
 
   getUsers = async () => {
     const response = await axios.get(`${API_Server}`);
     const users = response.data;
     this.setState({ users });
   }
-
+ 
   getQuery = async (e) => {
     e.preventDefault();
     const query = e.target.value.toLowerCase();
@@ -38,6 +44,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.auth0);
     return(
       <>
         <Router>
@@ -47,11 +54,14 @@ class App extends React.Component {
                 <Header onChange={this.getQuery}/>
                 <Navbar bg="success">
                 </Navbar>
-                  <Card.Img
-                  alt='kitten' 
-                  src='http://placekitten.com/1920/600'
-                  className="mt-4"
-                  />
+                  {this.state.users.length && this.props.auth0.isAuthenticated &&
+                    <MapContainer 
+                    users={this.state.users} 
+                    getSelectedUser={this.getSelectedUser} 
+                    authUser={this.props.auth0.user}>
+                    </MapContainer>
+                  }
+                  {/* {this.state.selectedUser.length && <getUser> </getUser>} */}
               </Container>
             </Route>
           </Switch>
@@ -61,4 +71,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
