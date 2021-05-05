@@ -1,7 +1,7 @@
-function Footer() {
+function Header() {
     return (
         <h1>Tool-time</h1>
     )
 }
 
-export default Footer;
+export default Header;

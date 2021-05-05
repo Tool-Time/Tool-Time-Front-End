@@ -9,25 +9,27 @@ import Header from './modules/Header';
 //import Footer from './modules/Footer';
 import LogoutButton from './modules/LogoutButton';
 import Profile from './modules/Profile';
+import MapMaker from './modules/Map.js';
 
 
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       //coming soon
     }
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <>
-      <Header />
-      {this.props.auth0.isAuthenticated ?  <LogoutButton /> : <LoginButton /> }
-      {this.props.auth0.isAuthenticated && 
-      <Profile />
-      }
-      {/* <Footer /> */}
+        <Header />
+        {this.props.auth0.isAuthenticated ? <LogoutButton /> : <LoginButton />}
+        {this.props.auth0.isAuthenticated &&
+          <Profile />
+        }
+        <MapMaker />
+        {/* <Footer /> */}
       </>
     )
   }
