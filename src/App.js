@@ -8,6 +8,7 @@ import {
   Route
 } from 'react-router-dom';
 import Header from './modules/Header';
+import SearchForm  from './modules/SearchForm';
 
 const API_Server = process.env.REACT_APP_API_URL;
 
@@ -17,20 +18,28 @@ class App extends React.Component {
     super(props);
     this.state = {
       users: [],
+      query: ''
     }
   }
 
   getUsers = async () => {
-    const response = await axios.get(`${API_Server}users`);
+    const response = await axios.get(`${API_Server}`);
     const users = response.data;
     this.setState({ users });
+  }
+
+  getQuery = async (e) => {
+    e.preventDefault();
+    const query = e.target.value.toLowerCase();
+    const response = await axios.get(`${API_Server}users/?category=${query}`);
+    this.setState({users: response.data});
   }
 
   async componentDidMount() {
     await this.getUsers();
   }
 
-  render(){
+  render() {
     return(
       <>
         <Router>
@@ -39,13 +48,7 @@ class App extends React.Component {
               <Container fluid>
                 <Header />
                 <Navbar bg="success">
-                  <Form inline>
-                    <Form.Group >
-                      <Form.Control type="text" placeholder="enter a category of tool">
-                      </Form.Control>
-                      <Button className="ml-2">Submit</Button>
-                    </Form.Group>
-                  </Form>
+                <SearchForm onChange={this.getQuery} />
                 </Navbar>
                   <Card.Img
                   alt='kitten' 
