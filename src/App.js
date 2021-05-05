@@ -51,14 +51,10 @@ class App extends React.Component {
                 <Header onChange={this.getQuery}/>
                 <Navbar bg="success">
                 </Navbar>
-                  {/* <Card.Img
-                  alt='kitten' 
-                  src='http://placekitten.com/1920/600'
-                  className="mt-4"
-                  /> */}
-                  {this.state.users.length >0 && this.props.auth0.isAuthenticated === true ? <MapContainer users={this.state.users} authUser={this.props.auth0.user}>
-                    <Card/>
-                  </MapContainer> : null}
+                  {this.state.users.length && this.props.auth0.isAuthenticated &&
+                    <MapContainer users={this.state.users} authUser={this.props.auth0.user}>
+                    </MapContainer>
+                  }
               </Container>
             </Route>
           </Switch>
