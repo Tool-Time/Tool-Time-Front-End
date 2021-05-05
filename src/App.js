@@ -8,6 +8,8 @@ import {
   Route
 } from 'react-router-dom';
 import Header from './modules/Header';
+import MapContainer from './modules/Map.js';
+import {withAuth0} from '@auth0/auth0-react';
 
 const API_Server = process.env.REACT_APP_API_URL;
 
@@ -25,6 +27,7 @@ class App extends React.Component {
     const users = response.data;
     this.setState({ users });
   }
+ 
 
   getQuery = async (e) => {
     e.preventDefault();
@@ -38,6 +41,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(this.props.auth0);
     return(
       <>
         <Router>
@@ -47,11 +51,14 @@ class App extends React.Component {
                 <Header onChange={this.getQuery}/>
                 <Navbar bg="success">
                 </Navbar>
-                  <Card.Img
+                  {/* <Card.Img
                   alt='kitten' 
                   src='http://placekitten.com/1920/600'
                   className="mt-4"
-                  />
+                  /> */}
+                  {this.state.users.length >0 && this.props.auth0.isAuthenticated === true ? <MapContainer users={this.state.users} authUser={this.props.auth0.user}>
+                    <Card/>
+                  </MapContainer> : null}
               </Container>
             </Route>
           </Switch>
@@ -61,4 +68,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAuth0(App);
