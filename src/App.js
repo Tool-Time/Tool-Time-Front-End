@@ -18,8 +18,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       users: [],
+      allUsers: [],
+      category: '',
       selectedUser: [],
-      showModal: false
+      showModal: false,
+      centeredMapUser:{},
+      selectedValue: 'carpentry'
     }
   }
 
@@ -36,11 +40,10 @@ class App extends React.Component {
   getUsers = async () => {
     const response = await axios.get(`${API_Server}`);
     const users = response.data;
-    this.setState({ users });
+    this.setState({ allUsers: users, users });
   }
 
   getQuery = async (e) => {
-    e.preventDefault();
     const query = e.target.value.toLowerCase();
     const response = await axios.get(`${API_Server}users/?category=${query}`);
     this.setState({ users: response.data });
@@ -58,14 +61,21 @@ class App extends React.Component {
           <Switch>
             <Route path="/">
               <Container fluid>
-                <Header onChange={this.getQuery} />
+                <Header 
+                handleChange={this.getQuery} 
+                selectedValue={this.state.selectedValue}
+                category={this.state.category}
+                />
                 <Navbar bg="success">
                 </Navbar>
                 {this.state.users.length && this.props.auth0.isAuthenticated &&
                   <MapContainer
                     users={this.state.users}
+                    allUsers={this.state.allUsers}
                     getSelectedUser={this.getSelectedUser}
-                    authUser={this.props.auth0.user}>
+                    authUser={this.props.auth0.user}
+                    centeredUser={this.state.centeredMapUser}
+                    centeredMapUser={this.centeredMapUser}>
                   </MapContainer>
                 }
                 {this.state.showModal ?
@@ -75,6 +85,7 @@ class App extends React.Component {
                 }
               </Container>
             </Route>
+
           </Switch>
         </Router>
       </>
