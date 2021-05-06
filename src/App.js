@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
-import { Container, Card, Navbar} from 'react-bootstrap';
+import { Container, Navbar} from 'react-bootstrap';
 import {
   BrowserRouter as Router,
   Switch,
