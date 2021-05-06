@@ -1,8 +1,6 @@
 import React from 'react';
 // import {Marker, InfoWindow} from 'react-bootstrap';
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
-import Card from 'react-bootstrap/Card'
-
 class MapContainer extends React.Component {
 
   render() {
@@ -16,7 +14,7 @@ const currentUser = this.props.users.filter(user => user.email === email);
       <>
         <Map google={this.props.google} zoom={10} initialCenter={{ lat: currentUser[0].location[0], lng: currentUser[0].location[1] }}>
 
-          <Card> {this.props.users[0].name} </Card>
+         
           <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
               <h1>{'Dope Place Coming Soonz'}</h1>
