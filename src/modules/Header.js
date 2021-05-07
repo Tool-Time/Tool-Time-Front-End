@@ -22,7 +22,9 @@ class Header extends React.Component {
           }
         </Nav>
        
-        <SearchForm onClick={this.props.onClick}/>
+        <SearchForm 
+        handleChange={this.props.handleChange}
+        category={this.props.category}/>
       </Navbar>
     )
   }

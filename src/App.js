@@ -11,7 +11,6 @@ import Header from './modules/Header';
 import MapContainer from './modules/Map.js';
 import { withAuth0 } from '@auth0/auth0-react';
 import Profile from './modules/Profile.js'
-import Splash from './modules/Splash';
 
 const API_Server = process.env.REACT_APP_API_URL;
 class App extends React.Component {
@@ -19,6 +18,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       users: [],
+      allUsers: [],
+      category: '',
       selectedUser: [],
       showModal: false,
       centeredMapUser:{},
@@ -39,13 +40,12 @@ class App extends React.Component {
   getUsers = async () => {
     const response = await axios.get(`${API_Server}`);
     const users = response.data;
-    this.setState({ users });
+    this.setState({ allUsers: users, users });
   }
 
   getQuery = async (e) => {
     const query = e.target.value.toLowerCase();
     const response = await axios.get(`${API_Server}users/?category=${query}`);
-    console.log(response);
     this.setState({ users: response.data });
   }
 
@@ -60,16 +60,18 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/">
-              <Splash/>
-            </Route>
-            <Route path="/home">
               <Container fluid>
-                <Header handleChange={this.getQuery} selectedValue={this.state.selectedValue}/>
+                <Header 
+                handleChange={this.getQuery} 
+                selectedValue={this.state.selectedValue}
+                category={this.state.category}
+                />
                 <Navbar bg="success">
                 </Navbar>
                 {this.state.users.length && this.props.auth0.isAuthenticated &&
                   <MapContainer
                     users={this.state.users}
+                    allUsers={this.state.allUsers}
                     getSelectedUser={this.getSelectedUser}
                     authUser={this.props.auth0.user}
                     centeredUser={this.state.centeredMapUser}
