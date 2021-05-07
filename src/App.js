@@ -49,6 +49,18 @@ class App extends React.Component {
     this.setState({ users: response.data });
   }
 
+  getCurrentUser = (currentUser) => {
+    this.setState(currentUser,);
+  } 
+
+  borrowTool = async (e, email) => {
+    const toolID = e.target.value; 
+    const ownerID = this.state.selectedUser._id;
+    const borrower = this.state.allUsers.find(user => user.email === email);
+    const borrowerID = borrower._id;
+    console.log(borrowerID);
+  }
+
   async componentDidMount() {
     await this.getUsers();
   }
@@ -80,7 +92,11 @@ class App extends React.Component {
                 }
                 {this.state.showModal ?
                   <Profile
-                    selectedUser={this.state.selectedUser} showModal={this.state.showModal} handleClose={this.handleClose}>
+                    selectedUser={this.state.selectedUser}
+                    showModal={this.state.showModal}
+                    handleClose={this.handleClose}
+                    authUser={this.props.auth0.user}
+                    getCurrentUser={this.getCurrentUser}>
                   </Profile> : ''
                 }
               </Container>
