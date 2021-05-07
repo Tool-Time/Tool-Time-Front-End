@@ -34,7 +34,6 @@ class App extends React.Component {
   getSelectedUser = async (e) => {
     const response = await axios.get(`${API_Server}user/${e.value}`);
     this.setState({ selectedUser: response.data, showModal: true });
-    console.log(this.state.selectedUser);
   }
 
   getUsers = async () => {
@@ -47,6 +46,20 @@ class App extends React.Component {
     const query = e.target.value.toLowerCase();
     const response = await axios.get(`${API_Server}users/?category=${query}`);
     this.setState({ users: response.data });
+  }
+
+  getCurrentUser = (currentUser) => {
+    this.setState(currentUser,);
+  } 
+
+  borrowTool = async (e) => {
+    const values = e.target.value.split(',');
+    const toolID = Number(values[0]);
+    const borrowerID = values[1];
+    const ownerID = this.state.selectedUser._id;
+
+    await axios.put(`${API_Server}borrow/${ownerID}`, {borrowerID, toolID});
+    await this.getUsers();
   }
 
   async componentDidMount() {
@@ -80,7 +93,12 @@ class App extends React.Component {
                 }
                 {this.state.showModal ?
                   <Profile
-                    selectedUser={this.state.selectedUser} showModal={this.state.showModal} handleClose={this.handleClose}>
+                    selectedUser={this.state.selectedUser}
+                    showModal={this.state.showModal}
+                    handleClose={this.handleClose}
+                    authUser={this.props.auth0.user}
+                    allUsers={this.state.allUsers}
+                    borrowTool={this.borrowTool}>
                   </Profile> : ''
                 }
               </Container>
