@@ -4,9 +4,10 @@ import { Modal, Button, Table, Container, } from 'react-bootstrap';
 class Profile extends React.Component {
 
   render() {
+    const email = this.props.authUser.email;
+    const currentUser = this.props.allUsers.find(user => user.email === email);
 
     return (
-
       <Modal show={this.props.showModal} onHide={this.props.handleClose} size='lg'>
         <Modal.Header closeButton>
           <Modal.Title>{this.props.selectedUser.name} 👍, Hey Yo!</Modal.Title>
@@ -15,32 +16,34 @@ class Profile extends React.Component {
           <Container>
             <Table striped bordered hover>
               <thead>
-                <th>
-                  #
-              </th>
-                <th>
-                  Tool Name
-              </th>
-                <th>
-                  Category
-              </th>
-                <th>
-                  Availability
-              </th>
-                <th>
-                  Owner
-              </th>
-                <th>
-                  Borrowed By
-              </th>
-                <th>
-                  Actions
-              </th>
+                <tr>
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Tool Name
+                  </th>
+                  <th>
+                    Category
+                  </th>
+                  <th>
+                    Availability
+                  </th>
+                  <th>
+                    Owner
+                  </th>
+                  <th>
+                    Borrowed By
+                  </th>
+                  <th>
+                    Actions
+                  </th>
+                </tr>
               </thead>
               <tbody>
                 {this.props.selectedUser.tools.map((tool, idx) => {
                   return (
-                    <tr>
+                    <tr key={idx}>
                       <td>
                         {idx + 1}
                       </td>
@@ -51,7 +54,7 @@ class Profile extends React.Component {
                         {tool.category}
                       </td>
                       <td>
-                        {tool.Availability}
+                        {`${tool.Availbility}`}
                       </td>
                       <td>
                         {tool.owner}
@@ -60,9 +63,18 @@ class Profile extends React.Component {
                         {tool.borrowedBy}
                       </td>
                       <td>
-                        <Button>
+                        {tool.Availbility ? 
+                        <Button
+                        variant='success' 
+                        value={`${idx},${currentUser._id}`} 
+                        onClick={this.props.borrowTool}>
                           Borrow
-                       </Button>
+                        </Button>
+                        :
+                        <Button variant='warning'>
+                          Return
+                        </Button>
+                      }
                       </td>
                     </tr>
                   )
@@ -71,14 +83,6 @@ class Profile extends React.Component {
             </Table>
           </Container>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.handleClose}>
-            Close
-        </Button>
-          <Button variant="primary" onClick={this.props.handleClose}>
-            Select
-        </Button>
-        </Modal.Footer>
       </Modal>
 
 
