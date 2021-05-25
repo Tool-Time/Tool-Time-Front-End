@@ -79,8 +79,6 @@ class App extends React.Component {
                 selectedValue={this.state.selectedValue}
                 category={this.state.category}
                 />
-                <Navbar bg="success">
-                </Navbar>
                 {this.state.users.length && this.props.auth0.isAuthenticated &&
                   <MapContainer
                     users={this.state.users}

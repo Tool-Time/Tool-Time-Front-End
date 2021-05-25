@@ -10,7 +10,8 @@ import SearchForm  from './SearchForm';
 class Header extends React.Component {
   render() {
     return (
-      <Navbar bg="dark" variant="dark" expand="lg">
+      
+      <Navbar fixed="top" bg="dark" variant="dark" expand="lg" className="bar">
         <Navbar.Brand>Tool Time</Navbar.Brand>
 
         <Nav className="mr-auto">
@@ -26,6 +27,7 @@ class Header extends React.Component {
         handleChange={this.props.handleChange}
         category={this.props.category}/>
       </Navbar>
+    
     )
   }
 }

@@ -13,3 +13,8 @@ html {
 div.container-fluid {
   background: #343a40;
 }
+
+.bar {
+  position: fixed;
+}
+
