@@ -49,7 +49,7 @@ function App() {
     await getUsers();
   }, []);
 
-  useEffect(getUsers(), []);
+  useEffect(() => getUsers(), []);
 
   return (
     <>
